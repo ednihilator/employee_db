@@ -1,49 +1,5 @@
-const inquirer = require("inquirer");
-const mysql = require("mysql2");
-const sequelize = require("./config/connection");
-
-// const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-
-const questions = [
-  {
-    type: "input",
-    message: "What would you like to do?",
-    name: "text",
-  },
-  {
-    type: "list",
-    message: "What would you like to do?",
-    name: "start",
-    choices: [
-      "view all departments",
-      "view all roles",
-      "add a department",
-      "add a role",
-      "add empoyee",
-      "update employee role",
-    ],
-  },
-];
-
-// Connect to database
-const db = mysql.createConnection(
-  {
-    host: "localhost",
-    // MySQL username,
-    user: "root",
-    // TODO: Add MySQL password here
-    password: "",
-    database: "employee_db",
-  },
-  console.log(`Connected to the employee database.`)
-);
-
-// Create a employee
 app.post("/api/new-employee", ({ body }, res) => {
   const sql = `INSERT INTO employees (emp_name)
     VALUES (?)`;
@@ -118,13 +74,4 @@ app.put("/api/employee/:id", (req, res) => {
       });
     }
   });
-});
-
-// Default response for any other request (Not Found)
-app.use((req, res) => {
-  res.status(404).end();
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
