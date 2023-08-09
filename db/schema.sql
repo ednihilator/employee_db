@@ -2,26 +2,28 @@ DROP DATABASE IF EXISTS employee_db;
 CREATE DATABASE employee_db;
 USE employee_db;
 
-CREATE TABLE employees (
-  emp_id INT NOT NULL
-  first_name VARCHAR(50) NOT NULL,
-  last_name VARCHAR(50) NOT NULL,
-  job_title VARCHAR(50) NOT NULL,
-  manager_name VARCHAR(50),
-  dept_name VARCHAR(50),
-  salary INT NOT NULL,
-  PRIMARY KEY (id)
-)
- 
-CREATE TABLE departmentInfo (
+
+CREATE TABLE department (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(30) UNIQUE NOT NULL
+);
+
+CREATE TABLE role (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(30) UNIQUE NOT NULL,
+  salary DECIMAL NOT NULL,
   dept_id INT NOT NULL,
-  dept_name VARCHAR(50)
-)
-CREATE TABLE roles(
+  FOREIGN KEY (dept_id) REFERENCES department(id) ON DELETE CASCADE
+);
+
+CREATE TABLE employee (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  first_name VARCHAR(30) NOT NULL,
+  last_name VARCHAR(30) NOT NULL,
   role_id INT NOT NULL,
-  job_title VARCHAR(50),
-  manager_name VARCHAR(50),
-  salary INT NOT NULL,
-  dept_name VARCHAR(50)
-)
+  manager_id INT,
+  FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
+  FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE CASCADE
+);
+ 
 

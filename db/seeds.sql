@@ -1,15 +1,25 @@
-INSERT INTO employees (emp_id, first_name, last_name, job_title, salary, manager_name, dept_name)
-VALUES (1,"Ted", "Smith", "accountant", 80, "Michael Scott", "accounting"),
-(2,"Fred", "Johnson", "head marketing guy", 75, "Michael Scott", "marketing"),
-(3,"Ed"),
-(4,"Ned"),
-(5,"Zed");
+USE employee_db;
 
-INSERT INTO departmentInfo (dept_id, dept_name)
-VALUES (1, "accounting"),
-(2, "marketing"),
-(3, "human resources"), 
-(4, "sales"),
-(5,"general manager")
+INSERT INTO department (name)
+VALUES ("accounting"),
+("marketing"),
+("human resources"), 
+("sales"),
+("management");
 
-INSERT INTO roles (role_id, job_title, manager_name, salary, dept_name)
+INSERT INTO role (title, salary, dept_id)
+VALUES ("accountant", 80000, 1),
+("marketing guy", 70000,2),
+("HR rep", 65000, 3),
+("sales person", 75000,4),
+("general manager", 85000,5);
+
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES ("Ted", "Smith", 5, NULL),
+("Fred", "Johnson", 2, 1 ),
+("Ed", "Sample1", 3, 1),
+("Ned", "Sample2", 4, 1),
+("Zed", "Sample3", 1, 1);
+
+
+
